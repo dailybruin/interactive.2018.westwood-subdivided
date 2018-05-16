@@ -1,0 +1,34 @@
+{
+  "data.aml": {
+    "solos": [
+      {
+        "Name": "Josh Rosen",
+        "Headline": "This is the headline for art 1",
+        "Image": "1.jpg",
+        "Byline": "Joe Bruin",
+        "Text": "",
+        "Photocredit": ""
+      }
+    ],
+    "duets": [
+      {
+        "Name": "",
+        "Headline": "",
+        "Image": "",
+        "Byline": "",
+        "Text": "",
+        "Photocredit": ""
+      }
+    ],
+    "bands": [
+      {
+        "Name": "",
+        "Headline": "",
+        "Image": "",
+        "Byline": "",
+        "Text": "",
+        "Photocredit": ""
+      }
+    ]
+  }
+}
