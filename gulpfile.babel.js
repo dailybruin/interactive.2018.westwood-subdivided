@@ -15,6 +15,7 @@ import sourcemaps from 'gulp-sourcemaps';
 import gutil from 'gulp-util';
 import rename from 'gulp-rename';
 import replace from 'gulp-replace';
+import data from 'gulp-data';
 
 // Browsersync
 import bs from 'browser-sync';
@@ -29,25 +30,28 @@ function watchDir(project) {
   gulp.watch('src/article.njk', function() {render();});
 }
 function render() {
-  let data = require('./data.json');
-  posts('src/article.njk', 'dev/', data['data.aml']);
-
+  let data_input = require('./data.json');
+  gutil.log('hello1');
+  posts('src/article.njk', 'dev/', data_input['data.aml']);
 }
 function posts(template, output, posts) {
-  for (var item in posts) {
-    for (var section in item) {
-      data.posts = posts.posts[item];
-      html(template, output, data, {basename: data.posts['filename'], extname: ".html"});
-    }
-  }
+  Object.keys(posts).forEach(key=> {
+    posts[key].forEach(article => {
+      html(template, output, article, {basename: article['Name'], extname: ".html"});
+    })
+  })
+  // for (var item in posts) {
+  //   // for (var section in item) {
+  //   //   gutil.log('hello');
+  //   //   gutil.log(section);
+  //   //   html(template, output, section, {basename: posts['Name'], extname: ".html"});
+  //   // }
+  // }
 }
 function html(template, output, thedata, name) {
-  if (thedata.posts) {
-    gutil.log(thedata.posts['title']);
-  }
   gulp.src(template)
   .pipe(data(thedata))
-  .pipe(nunjucks({path: ['group/parts/']}))
+  .pipe(nunjucksRender({path: ['src/']}))
   .pipe(rename(name))
   .pipe(gulp.dest(output));
 }
@@ -67,9 +71,15 @@ gulp.task('styles', () =>
     .pipe(browserSync.stream())
 );
 
+function returnData() {
+  let data = require('./data.json');
+  return data['data.aml'];
+}
+
 gulp.task('html', () =>
   gulp
     .src('src/*.{njk,html}')
+    .pipe(data(returnData()))
     .pipe(
       nunjucksRender({
         path: ['src/'],
@@ -88,7 +98,7 @@ gulp.task('scripts', () =>
     .pipe(gulp.dest('dev/js'))
 );
 
-gulp.task('development', ['html', 'styles', 'images', 'scripts'], () => {
+gulp.task('development', ['html', 'styles', 'images', 'scripts', 'watch-projects'], () => {
   browserSync.init({
     server: {
       baseDir: './dev',
@@ -106,3 +116,4 @@ gulp.task('development', ['html', 'styles', 'images', 'scripts'], () => {
 gulp.task('clean', () => del(['dev/', 'prod/']));
 gulp.task('default', ['development']);
 gulp.task('build', ['production']);
+gulp.task('test', ['watch-projects']);

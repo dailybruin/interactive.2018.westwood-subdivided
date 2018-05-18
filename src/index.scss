@@ -1,2 +1,11 @@
 @import 'components/footer/_footer';
+@import 'components/header/_header';
 @import 'components/section/_section';
+@import '_article';
+
+#db-logo {
+  position: fixed;
+  right: 15px;
+  bottom: 15px;
+  width: 50px;
+}
