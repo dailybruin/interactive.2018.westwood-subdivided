@@ -42,7 +42,7 @@
     <h1>{{Headline}}</h1>
     <div class="article-byline">By {{Byline}}</div>
     <div class="image-container">
-      <img src="img/{{Image}}"/>
+      <img src="img-up/{{Image}}"/>
     </div>
     <div class="first-line"><span class="text">{{Photocredit}}</span></div>
   </div>
@@ -53,6 +53,13 @@
   </div>
   <a href="" id="return-button">RETURN HOME</a>
   {% include "./components/footer/footer.njk" %}
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-28181852-23"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'UA-28181852-23');
+  </script>
   <script src="js/article.js"></script>
 </body>
 </html>

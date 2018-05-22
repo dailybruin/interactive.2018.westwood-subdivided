@@ -4,7 +4,15 @@
 {% include "./components/header/header.njk" %}
 {% include "./components/section/section.njk" %}
 {# {% include "./components/footer/footer.njk" %} #}
-<img id="db-logo" src="img/db-logo.png">
+<img id="db-logo" src="img-up/db-logo.png">
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-28181852-23"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'UA-28181852-23');
+</script>
 <script src="js/vibrant.js"></script>
 <script src="js/section.js"></script>
 {% endblock %}
