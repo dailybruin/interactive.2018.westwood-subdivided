@@ -3,8 +3,15 @@
 {% block content %}
 {% include "./components/header/header.njk" %}
 {% include "./components/section/section.njk" %}
+<div class="section-header">
+  <h1>THE IMPACT</h1>
+</div>
+<div class="row impact">
+  <div class="col-sm-6 left" id="questions"></div>
+  <div class="col-sm-6 right" id="answers"></div>
+</div>
 {# {% include "./components/footer/footer.njk" %} #}
-<img id="db-logo" src="img-up/db-logo.png">
+<img id="db-logo" src="img/db-logo.png">
 <!-- Global site tag (gtag.js) - Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-28181852-23"></script>
 <script>
@@ -12,6 +19,296 @@
   function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
   gtag('config', 'UA-28181852-23');
+</script>
+<script
+  src="https://code.jquery.com/jquery-3.3.1.min.js"
+  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+  crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js"></script>
+<script>
+$(document).ready(function DrawQuestions() {
+  var question = [
+    "Do you have ongoing and substantial participation of any kind in Westwood?",
+    "Where do you live?",
+    "What kind of a resident are you?",
+    "Are you a business owner, operator or employee?",
+    "Are you a student?",
+    "Are you a UCLA staff or faculty member?",
+    "Are you involved in a K-12 school?",
+    "Are you involved in the faith-based community?",
+    "Are you involved in arts, culture, non-profits or recreation within WWNC's boundaries?",
+    "Are you part of an organization that primarily operates within Westwood Forward's boundaries?"
+  ];
+  var qname = ["participation",
+    "livinglocation",
+    "residenttype",
+    "businesstype",
+    "studenttype",
+    "stafftype",
+    "k12",
+    "faithbased",
+    "arts",
+    "organization"
+  ];
+  var answera = ["Yes, including within the Westwood Forward boundaries.",
+    "Within the Westwood Forward boundaries.",
+    "I am a homeowner.",
+    "Yes, and my business is within the Westwood Forward boundaries.",
+    "Yes, I am a UCLA undergraduate student.",
+    "I am a UCLA faculty member.",
+    "Yes, I am a parent, teacher or administrator in the K-12 school community, public or private, within the Westwood Neighborhood Council boundaries.",
+    "Yes, I am currently a leader such as clergy, laity, staff, or volunteer in a faith based institution located within the Westwood Neighborhood Council boundaries.",
+    "Yes, I am a member of, or work with a non-profit, arts or cultural organization.",
+    "Yes, I actively participate in a religious, educational, community, non-profit, neighborhood, chamber of commerce, BID, sorority, fraternity, school/parent group, student, arts, service, or cultural group/organization, etc."
+  ];
+  var answerb = [
+    "Yes, but only in parts of Westwood that are not included under Westwood Forward.",
+    "Within a part of Westwood that is not included under Westwood Forward.",
+    "I am a renter.",
+    "Yes, and my business is within a part of Westwood that is not included under Westwood Forward.",
+    "Yes, I am a UCLA graduate or professional student.",
+    "I am a UCLA staff member or administrator.",
+    "No.",
+    "No.",
+    "No.",
+    "No."
+  ];
+  var answerc = ["No.",
+    "Outside of Westwood.",
+    "I am homeless, I sublet or I otherwise live informally.",
+    "No.",
+    "No.",
+    "No."
+  ];
+  var text = "";
+  var i;
+  for (i = 0; i < 6; i++) {
+    text += "<div class='bs-callout bs-callout-info' id='question'><div class='card-block'><h5 class='card-title'>" + question[i] + "</h5><div class='form-check'><label class='form-check-label'><input class='form-check-input' type='radio' name='" + qname[i] + "' value='a' checked><span> " + answera[i] + "</span></label></div><div class='form-check'><label class='form-check-label'><input class='form-check-input' type='radio' name='" + qname[i] + "' value='b'><span> " + answerb[i] + "</span></label></div><div class='form-check'><label class='form-check-label'><input class='form-check-input' type='radio' name='" + qname[i] + "' value='c'><span> " + answerc[i] + "</span></label></div></div></div>";
+  }
+  for (i = 6; i < 10; i++) {
+    text += "<div class='bs-callout bs-callout-info' id='question'><div class='card-block'><h5 class='card-title'>" + question[i] + "</h5><div class='form-check'><label class='form-check-label'><input class='form-check-input' type='radio' name='" + qname[i] + "' value='a' checked><span> " + answera[i] + "</span></label></div><div class='form-check'><label class='form-check-label'><input class='form-check-input' type='radio' name='" + qname[i] + "' value='b'><span> " + answerb[i] + "</span></label></div></div></div>";
+  }
+  document.getElementById("questions").innerHTML = text;
+});
+$(document).ready(CrunchNumbers);
+$("div").click(CrunchNumbers);
+
+function CrunchNumbers() {
+  var participationanswer = String($("input[type='radio'][name='participation']:checked").val());
+  var livinglocationanswer = String($("input[type='radio'][name='livinglocation']:checked").val());
+  var residenttypeanswer = String($("input[type='radio'][name='residenttype']:checked").val());
+  var businesstypeanswer = String($("input[type='radio'][name='businesstype']:checked").val());
+  var studenttypeanswer = String($("input[type='radio'][name='studenttype']:checked").val());
+  var stafftypeanswer = String($("input[type='radio'][name='stafftype']:checked").val());
+  var k12answer = String($("input[type='radio'][name='k12']:checked").val());
+  var faithbasedanswer = String($("input[type='radio'][name='faithbased']:checked").val());
+  var artsanswer = String($("input[type='radio'][name='arts']:checked").val());
+  var organizationanswer = String($("input[type='radio'][name='organization']:checked").val());
+  var wwnc1eligible = 0;
+  var wwnc2eligible = 0;
+  var wwnc3eligible = 0;
+  var wwnc4eligible = 0;
+  var wwnc5eligible = 0;
+  var wwnc6eligible = 0;
+  var wwnc7eligible = 0;
+  var wwnc8eligible = 0;
+  var wwnc9eligible = 0;
+  var nwnc1eligible = 0;
+  var nwnc2eligible = 0;
+  var nwnc3eligible = 0;
+  var nwnc4eligible = 0;
+  var nwnc5eligible = 0;
+  var nwnc6eligible = 0;
+  var nwnc7eligible = 0;
+  var nwnc8eligible = 0;
+  var nwnc9eligible = 0;
+  var nwnc10eligible = 0;
+  var wwncseatnames = "";
+  var nwncseatnames = "";
+  if (livinglocationanswer == "a" || livinglocationanswer == "b") {
+    if (residenttypeanswer == "a") {
+      wwnc1eligible = 4
+    };
+  };
+  if (livinglocationanswer == "a" || livinglocationanswer == "b") {
+    if (residenttypeanswer == "b") {
+      wwnc2eligible = 4
+    };
+  };
+  if (businesstypeanswer == "a" || businesstypeanswer == "b") {
+    wwnc3eligible = 4
+  };
+  if (studenttypeanswer == "a" || studenttypeanswer == "b") {
+    wwnc4eligible = 1
+  };
+  if (stafftypeanswer == "a" || stafftypeanswer == "b") {
+    wwnc5eligible = 1
+  };
+  if (k12answer == "a") {
+    wwnc6eligible = 1
+  };
+  if (faithbasedanswer == "a") {
+    wwnc7eligible = 1
+  };
+  if (artsanswer == "a") {
+    wwnc8eligible = 1
+  };
+  if (participationanswer == "a" || participationanswer == "b") {
+    wwnc9eligible = 2
+  };
+  if (livinglocationanswer == "a") {
+    if (residenttypeanswer == "a") {
+      nwnc1eligible = 1
+    };
+  };
+  if (livinglocationanswer == "a") {
+    if (residenttypeanswer == "b") {
+      nwnc2eligible = 2
+    };
+  };
+  if (livinglocationanswer == "a") {
+    nwnc3eligible = 1
+  };
+  if (businesstypeanswer == "a") {
+    nwnc4eligible = 2
+  };
+  if (studenttypeanswer == "a") {
+    nwnc5eligible = 1
+  };
+  if (studenttypeanswer == "b") {
+    nwnc6eligible = 1
+  };
+  if (stafftypeanswer == "b") {
+    nwnc7eligible = 1
+  };
+  if (stafftypeanswer == "a") {
+    nwnc8eligible = 1
+  };
+  if (organizationanswer == "a") {
+    nwnc9eligible = 2
+  };
+  if (participationanswer == "a") {
+    nwnc10eligible = 3
+  };
+  if (wwnc1eligible > 0) {
+    wwncseatnames = wwncseatnames + "<li>Owner Residential Group (4)"
+  };
+  if (wwnc2eligible > 0) {
+    wwncseatnames = wwncseatnames + "<li>Rental Residential Group (4)"
+  };
+  if (wwnc3eligible > 0) {
+    wwncseatnames = wwncseatnames + "<li>Business Group (4)"
+  };
+  if (wwnc4eligible > 0) {
+    wwncseatnames = wwncseatnames + "<li>Student Seat (1)"
+  };
+  if (wwnc5eligible > 0) {
+    wwncseatnames = wwncseatnames + "<li>Faculty or Staff Seat (1)"
+  };
+  if (wwnc6eligible > 0) {
+    wwncseatnames = wwncseatnames + "<li>Educational Community Seat (1)"
+  };
+  if (wwnc7eligible > 0) {
+    wwncseatnames = wwncseatnames + "<li>Faith Based Community Seat (1)"
+  };
+  if (wwnc8eligible > 0) {
+    wwncseatnames = wwncseatnames + "<li>Non-Profit / Arts / Culture / Recreational Community Seat (1)"
+  };
+  if (wwnc9eligible > 0) {
+    wwncseatnames = wwncseatnames + "<li>At-Large Seats (2)"
+  };
+  if (nwnc1eligible > 0) {
+    nwncseatnames = nwncseatnames + "<li>Homeowner Stakeholder Seat (1)"
+  };
+  if (nwnc2eligible > 0) {
+    nwncseatnames = nwncseatnames + "<li>Renter Stakeholder Seats (2)"
+  };
+  if (nwnc3eligible > 0) {
+    nwncseatnames = nwncseatnames + "<li>General Resident Stakeholder Seat (1)"
+  };
+  if (nwnc4eligible > 0) {
+    nwncseatnames = nwncseatnames + "<li>Business Stakeholder Seats (2)"
+  };
+  if (nwnc5eligible > 0) {
+    nwncseatnames = nwncseatnames + "<li>Undergraduate Student Member Seat (1)"
+  };
+  if (nwnc6eligible > 0) {
+    nwncseatnames = nwncseatnames + "<li>Graduate Student Member Seat (1)"
+  };
+  if (nwnc7eligible > 0) {
+    nwncseatnames = nwncseatnames + "<li>University Staff or Administrative Member Seat (1)"
+  };
+  if (nwnc8eligible > 0) {
+    nwncseatnames = nwncseatnames + "<li>Faculty Member Seat (1)"
+  };
+  if (nwnc9eligible > 0) {
+    nwncseatnames = nwncseatnames + "<li>Organizational Stakeholder Seats (2)"
+  };
+  if (nwnc10eligible > 0) {
+    nwncseatnames = nwncseatnames + "<li>At-Large Seats (3)"
+  };
+  var wwnceligibleseats = wwnc1eligible + wwnc2eligible + wwnc3eligible + wwnc4eligible + wwnc5eligible + wwnc6eligible + wwnc7eligible + wwnc8eligible + wwnc9eligible;
+  var nwnceligibleseats = nwnc1eligible + nwnc2eligible + nwnc3eligible + nwnc4eligible + nwnc5eligible + nwnc6eligible + nwnc7eligible + nwnc8eligible + nwnc9eligible + nwnc10eligible;
+  if (wwncseatnames == "") {
+    wwncseatnames = "[None]"
+  };
+  if (nwncseatnames == "") {
+    nwncseatnames = "[None]"
+  };
+  var changehtml;
+  if ((((((nwnceligibleseats / 15) - (wwnceligibleseats / 19)) / (wwnceligibleseats / 19)) * 100).toFixed(1)) > 0) {
+    changehtml = "You would have a " + (((((nwnceligibleseats / 15) - (wwnceligibleseats / 19)) / (wwnceligibleseats / 19)) * 100).toFixed(1)) + "% higher representation under the North Westwood Neighborhood Council."
+  } else if ((((((nwnceligibleseats / 15) - (wwnceligibleseats / 19)) / (wwnceligibleseats / 19)) * 100).toFixed(1)) < 0) {
+    changehtml = "You would have a " + (((((wwnceligibleseats / 19) - (nwnceligibleseats / 15)) / (wwnceligibleseats / 19)) * 100).toFixed(1)) + "% higher representation under the Westwood Neighborhood Council."
+  } else {
+    changehtml = "Your level of representation would be equal under both neighborhood councils."
+  };
+  if (nwnceligibleseats > 0) {
+    if (wwnceligibleseats == 0) {
+      changehtml = "You do not currently have representation under the Westwood Neighborhood Council, but you would have representation under the North Westwood Neighborhood Council.";
+    };
+  };
+  if (wwnceligibleseats > 0) {
+    if (nwnceligibleseats == 0) {
+      changehtml = "You currently have representation under the Westwood Neighborhood Council, but you would not have any representation under the North Westwood Neighborhood Council.";
+    };
+  };
+  if (wwnceligibleseats == 0) {
+    if (nwnceligibleseats == 0) {
+      changehtml = "You are not a stakeholder in Westwood, so you would not have representation under either neighborhood council.";
+    };
+  };
+  // var changehtml = (((((nwnceligibleseats/15) - (wwnceligibleseats/19))/(wwnceligibleseats/19)) * 100).toFixed(1));
+  var nwnccolor;
+  var wwnccolor;
+  if (((wwnceligibleseats / 19) * 100).toFixed(1) >= 0) {
+    wwnccolor = "danger";
+  };
+  if (((wwnceligibleseats / 19) * 100).toFixed(1) >= 25) {
+    wwnccolor = "warning";
+  };
+  if (((wwnceligibleseats / 19) * 100).toFixed(1) >= 50) {
+    wwnccolor = "info";
+  };
+  if (((wwnceligibleseats / 19) * 100).toFixed(1) >= 75) {
+    wwnccolor = "success";
+  };
+  if (((nwnceligibleseats / 15) * 100).toFixed(1) >= 0) {
+    nwnccolor = "danger";
+  };
+  if (((nwnceligibleseats / 15) * 100).toFixed(1) >= 25) {
+    nwnccolor = "warning";
+  };
+  if (((nwnceligibleseats / 15) * 100).toFixed(1) >= 50) {
+    nwnccolor = "info";
+  };
+  if (((nwnceligibleseats / 15) * 100).toFixed(1) >= 75) {
+    nwnccolor = "success";
+  };
+
+  document.getElementById("answers").innerHTML = "<div class='bs-callout bs-callout-success' id='results'><div class='card-block'><h3 class='card-title'>Results</h3><h5 class='card-title'>" + changehtml + "</h5></div></div><div class='bs-callout bs-callout-warning' id='answer'><div class='card-block'><h3 class='card-title'>Westwood Neighborhood Council</h3><b>Total Eligible Seats:</b> " + wwnceligibleseats + "<br><b>Total seats on council:</b> 19<hr /><b>Percentage of seats eligible for:</b> " + ((wwnceligibleseats / 19) * 100).toFixed(1) + "%<br><div class='progress'><div class='progress-bar progress-bar-striped bg-" + wwnccolor + " progress-bar-animated' role='progressbar' style='width: " + ((wwnceligibleseats / 19) * 100).toFixed(1) + "%' aria-valuenow='" + ((wwnceligibleseats / 19) * 100).toFixed(1) + "' aria-valuemin='0' aria-valuemax='100'></div></div><hr /><b>Eligible for:</b><ul>" + wwncseatnames + "</ul></div></div><div class='bs-callout bs-callout-warning' id='answer'><div class='card-block'><h3 class='card-title'>North Westwood Neighborhood Council</h3><b>Total Eligible Seats:</b> " + nwnceligibleseats + "<br><b>Total seats on council:</b> 15<hr /><b>Percentage of seats eligible for:</b> " + ((nwnceligibleseats / 15) * 100).toFixed(1) + "%<br><div class='progress'><div class='progress-bar progress-bar-striped bg-" + nwnccolor + " progress-bar-animated' role='progressbar' style='width: " + ((nwnceligibleseats / 15) * 100).toFixed(1) + "%' aria-valuenow='" + ((nwnceligibleseats / 15) * 100).toFixed(1) + "' aria-valuemin='0' aria-valuemax='100'></div></div><hr /><b>Eligible for:</b><ul>" + nwncseatnames + "</ul></div></div>";
+};
+
 </script>
 <script src="js/vibrant.js"></script>
 <script src="js/section.js"></script>

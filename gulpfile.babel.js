@@ -79,7 +79,8 @@ function returnData() {
   //   data['data.aml'].duets
   //   data['data.aml'].extras
   // });
-  return data['data.aml'];
+  // return data['data.aml'];
+  return data;
 }
 
 gulp.task('html', () =>
@@ -95,7 +96,7 @@ gulp.task('html', () =>
 );
 
 gulp.task('images', () => {
-  gulp.src('src/images/*').pipe(gulp.dest('dev/img-up'));
+  gulp.src('src/images/*').pipe(gulp.dest('dev/img'));
 });
 
 gulp.task('scripts', () =>

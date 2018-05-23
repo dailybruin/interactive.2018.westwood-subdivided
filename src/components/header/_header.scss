@@ -1,16 +1,25 @@
 header {
   height: 100vh;
   max-width: 100%;
-  background-image: url("https://features.dailybruin.com/2018/spring-sing/img-up/header.jpg");
+  background-image: url("../img/header.jpg");
   background-size: cover;
   font-size: 8vw;
-  font-family: "Federo", sans-serif;
+  font-family: 'Overpass', sans-serif;
   color: white;
   display: flex;
   flex-direction: column;
   padding: 25px;
   justify-content: center;
   align-items: center;
+}
+
+.blur {
+  position: fixed;
+  left: 0;
+  top: 0;
+  height: 20px;
+  width: 100%;
+  filter: blur(10px);
 }
 
 #spring {

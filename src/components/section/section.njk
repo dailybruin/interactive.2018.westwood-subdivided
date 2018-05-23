@@ -1,62 +1,32 @@
+<p style="width: 90%; background-color: white; border-bottom: 10px solid black;
+margin: 1em auto; padding: 1em; font-size: 1.5em; font-family: 'Overpass';">
+The Westwood Neighborhood Council is the city’s official advisor on Westwood politics. In November, students and other Westwood community members announced plans to form a new neighborhood council because they felt the current one did not adequately address their issues. The council election date is slated for May 22.
+</p>
 <div class="section-header">
-  <h1>Solos</h1>
-  <div class="main-line"></div>
-  <div class="second-line"></div>
+  <h1>NEWS</h1>
 </div>
 <div class="band">
-  {% for thing in solos %}
+  {% for thing in news %}
   <div class="item">
-    <a href="{{thing.Name}}.html" class="card">
-      <img src="img/{{thing.Image}}">
-      <h2>{{thing.Name}}</h2>
+    <a href="{{thing.link}}" class="card" target="_blank">
+      <img src="{{thing.image}}">
+      <h2>{{thing.headline}}</h2>
+      <h3>By {{thing.byline}}</h2>
     </a>
   </div>
   {% endfor %}
 </div>
 
 <div class="section-header">
-  <h1>Duets</h1>
-  <div class="main-line"></div>
-  <div class="second-line"></div>
+  <h1>COMMENTARY</h1>
 </div>
 <div class="band">
-  {% for thing in duets %}
+  {% for thing in commentary %}
   <div class="item">
-    <a href="{{thing.Name}}.html" class="card">
-      <img src="img/{{thing.Image}}">
-      <h2>{{thing.Name}}</h2>
-    </a>
-  </div>
-  {% endfor %}
-</div>
-
-<div class="section-header">
-  <h1>Bands</h1>
-  <div class="main-line"></div>
-  <div class="second-line"></div>
-</div>
-<div class="band">
-  {% for thing in bands %}
-  <div class="item">
-    <a href="{{thing.Name}}.html" class="card">
-      <img src="img/{{thing.Image}}">
-      <h2>{{thing.Name }}</h2>
-    </a>
-  </div>
-  {% endfor %}
-</div>
-
-<div class="section-header">
-  <h1>Extras</h1>
-  <div class="main-line"></div>
-  <div class="second-line"></div>
-</div>
-<div class="band">
-  {% for thing in extras %}
-  <div class="item">
-    <a href="{{thing.Name}}.html" class="card">
-      <img src="img/{{thing.Image}}">
-      <h2>{{thing.Name}}</h2>
+    <a href="{{thing.link}}" class="card" target="_blank">
+      <img src="{{thing.image}}">
+      <h2>{{thing.headline}}</h2>
+      <h3>By {{thing.byline}}</h2>
     </a>
   </div>
   {% endfor %}
